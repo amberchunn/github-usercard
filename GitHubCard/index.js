@@ -7,7 +7,8 @@
 axios
 	.get('https://api.github.com/users/amberchunn')
 	.then(response => {
-		console.log('Success:', response.data);
+		let data = response.data;
+		return data;
 	})
 	.catch(error => {
 		console.log('FAIL:', error);
@@ -23,8 +24,31 @@ axios
 /* Step 4: Pass the data received from Github into your function,
            create a new component and add it to the DOM as a child of .cards
 */
-function cardMaker(data) {
+function cardMaker(...data) {
+	// Build the Card Elements
+	const container = document.createElement('div').classList.add('card');
+	const imageEl = document.createElement('img').setAttribute('src', avatar);
+	const infoCont = document.createElement('div').classList.add('card-info');
+	const nameEl = document.createElement('h3').classList.add('name');
+	const usernameEl = document.createElement('p').classList.add('username');
+	const profileLink = document.createElement('a').setAttribute('href', htmlUrl);
+
+	const paragraphs = (...data) => {
+		let cont = document.createElement('p');
+		cont.document.createTextNode(data.location);
+		cont.document.createTextNode(data.profileLink);
+		cont.document.createTextNode(data.followers);
+		cont.document.createTextNode(data.following);
+		cont.document.createTextNode(data.bio);
+	};
+
+	// Attach the Data
 	const card = document.querySelector('.cards');
+	container.appendChild(imageEl);
+	container.appendChild(infoCont);
+	infoCont.appendChild(nameEl);
+	infoCont.appendChild(usernameEl);
+	infoCont.appendChild(paragraphs);
 	card.appendChild(container);
 }
 
@@ -59,44 +83,6 @@ const followersArray = [];
 </div>
 
 */
-
-function cardMaker(data) {
-	// Data Needed
-	let name = data.name;
-	let username = data.login;
-	let location = data.location;
-	let htmlUrl = data.html_url;
-	let avatar = data.avatar_url;
-	let followers = data.followers;
-	let following = data.following;
-	let bio = data.bio;
-
-	// Build the Card Elements
-	const container = document.createElement('div').classList.add('card');
-	const imageEl = document.createElement('img').setAttribute('src', avatar);
-	const infoCont = document.createElement('div').classList.add('card-info');
-	const nameEl = document.createElement('h3').classList.add('name');
-	const usernameEl = document.createElement('p').classList.add('username');
-	const profileLink = document.createElement('a').setAttribute('href', htmlUrl);
-
-	const paragraphs = () => {
-		let cont = document.createElement('p');
-		cont.location;
-		cont.profileLink;
-		cont.followers;
-		cont.following;
-		cont.bio;
-	};
-
-	console.log(paragraphs);
-
-	// Attach the Data
-	container.appendChild(imageEl);
-	container.appendChild(infoCont);
-	infoCont.appendChild(nameEl);
-	infoCont.appendChild(usernameEl);
-	infoCont.appendChild(paragraphs);
-}
 
 /* List of LS Instructors Github username's:
   tetondan
